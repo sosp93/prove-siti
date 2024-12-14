@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="element">
+            <span id="digital-clock">
+                12:34
+            </span>
+        </div>
+    </div>
+</body>
+<script>
+    const digitalClock = document.querySelector('#digital-clock');
+
+    function displayTime(){
+        const myDate = new Date();
+        digitalClock.innerHTML = myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds().toString().padStart(2,'0');
+    }
+
+    const clockupd = setInterval(displayTime, 1000);
+</script>
+</html>

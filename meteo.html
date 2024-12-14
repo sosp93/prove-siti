@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteo</title>
+    <link rel="stylesheet" href="meteo.css">
+    <link rel="shortcut icon" href="/meteo_img/weather-forecast.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Posizione -->
+        <nav class="pageMenu">
+            <form action="submit" target="_self">
+                <div><button id="btnGps" type="button">Localizzami</button></div>
+                <div>OPPURE</div>
+                <div><input id="citySearchName" placeholder="Scrivi il comune" type="search" enterkeyhint="submit"
+                        autocapitalize="true"><button id="citySearchBtn" type="button">Cerca</button></div>
+            </form>
+        </nav>
+
+        <main>
+            <!-- Attuale -->
+            <section id="sCurrent">
+                <h1 id="cityName">località</h1>
+                <h4 id="cityInfo">informazioni località</h4>
+                <h2 id="temp">8°C</h2>
+                <div id="coordGps"></div>
+                <img id="weatherNow" src="meteo_img/3.svg" alt="nuvoloso">
+            </section>
+
+            <!-- test su delebio -->
+            <section hidden id="testSection">
+                <button id="btnSearch" type="button">Avvia ricerca</button>
+            </section>
+
+            <section id="sForecast">
+
+            </section>
+
+        </main>
+
+
+        <!-- messaggi di log -->
+        <pre hidden>ciao</pre>
+    </div>
+
+    <div id="prefooter">
+        SCORRI IN BASSO
+    </div>
+    <footer>
+        <a href="https://www.svgrepo.com/collection/variety-duotone-filled-icons/">Sito di icone</a>
+        <a href="https://open-meteo.com/">Dati meteo: open-meteo.com</a>
+        <a href="https://bigdatacloud.com/">Geocodificazione inversa: bigdatacloud.com</a>
+
+        <div class="tile">
+            <div class="tileimg">
+                <img src="meteo_img/Open_Meteo_logo.png" alt="Open Meteo">
+            </div>
+            <div class="tiletext">
+                DATI METEOROLOGICI open-meteo.com
+            </div>
+        </div>
+
+        <div class="tile">
+            <a href="https://bigdatacloud.com/">
+                <div class="tileimg">
+                    <img src="meteo_img/BigDataCloud_idLUDkzcwI_1.svg" alt="bigdatacloud">
+                </div>
+                <div class="tiletext">
+                    Geocodificazione inversa: bigdatacloud.com
+                </div>
+            </a>
+        </div>
+    </footer>
+
+    <script src="meteo.js"></script>
+</body>
+
+</html>

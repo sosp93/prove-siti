@@ -1,4 +1,5 @@
 const degreesVal = document.querySelector('#degrees');
+const speedVal = document.querySelector('#speed');
 const btnGps = document.querySelector('#btngps');
 
 function displayPosition(){
@@ -10,9 +11,9 @@ function locationSuccess(position){
     console.log('LOCALIZZAZIONE RIUSCITA');
     console.log(position);
     if (position.coords.heading == null) 
-        degreesVal.innerHTML = 'not available - ' + position.timestamp + ' - accuracy: ' + position.coords.accuracy;
+        sppedVal.innerHTML = 'not available - ' + position.timestamp + ' - accuracy: ' + position.coords.accuracy;
     else
-        degreesVal.innerHTML = position.coords.heading
+        sppedVal.innerHTML = position.coords.speed
 }
 
 function locationFail(error){
@@ -36,19 +37,23 @@ function locationFail(error){
 }
 
 
-// let watchPositionID = null;
+let watchPositionID = null;
 
-// btnGps.addEventListener('click', function(){
-//     // getCurrentPosition è una funzione basata sulle callback
-//     console.log('ciao');
-//     if (!navigator.geolocation) alert('gps non supportato');
-//     watchPositionID = navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
-//     //navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
-// })
+btnGps.addEventListener('click', function(){
+    // getCurrentPosition è una funzione basata sulle callback
+    console.log('ciao');
+    if (!navigator.geolocation) alert('gps non supportato');
+    watchPositionID = navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
+    //navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
+})
+
+
 
 window.addEventListener("deviceorientationabsolute",mylistener,true);
 
 let i = 0;
+
+/* https://developer.mozilla.org/en-US/docs/Web/API/Device_orientation_events/Orientation_and_motion_data_explained */
 
 function mylistener (e) {
     console.log(e);
@@ -56,6 +61,6 @@ function mylistener (e) {
         degreesVal.innerHTML = ++i + ') alpha not available - ' + (e.absolute ? "assoluta" : "relativa");
     }
     else {
-        degreesVal.innerHTML = ++i + ') alpha: ' + e.alpha + ' - ' + (e.absolute ? "assoluta" : "relativa");
+        degreesVal.innerHTML = ++i + ') alpha: ' + Math.floor(e.alpha) + ' - ' + (e.absolute ? "assoluta" : "relativa");
     }
 }

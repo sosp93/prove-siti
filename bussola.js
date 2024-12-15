@@ -48,12 +48,14 @@ function locationFail(error){
 
 window.addEventListener("deviceorientationabsolute",mylistener,true);
 
+let i = 0;
+
 function mylistener (e) {
     console.log(e);
     if (e.alpha == null) {
-        degreesVal.innerHTML = 'alpha not available - ' + e.timeStamp;
+        degreesVal.innerHTML = ++i + ') alpha not available - ' + (e.absolute ? "assoluta" : "relativa");
     }
     else {
-        degreesVal.innerHTML = 'alpha: ' + e.alpha + ' - ' + e.timeStamp;
+        degreesVal.innerHTML = ++i + ') alpha: ' + e.alpha + ' - ' + (e.absolute ? "assoluta" : "relativa");
     }
 }

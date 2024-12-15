@@ -1,0 +1,39 @@
+#background-img{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+#background-img > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    filter: blur(3px);
+}
+
+.choose-list {
+    display: flex;
+    gap: .5rem;
+    flex-direction: row;
+}
+.item, .item > a{
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+.item img {
+    width: 100%;
+    height: 100%;
+}
+.item-name {
+    position: absolute;
+    bottom: 0;
+}
+.item:hover img {
+    filter: blur(2px);
+}
+.item:hover .item-name {
+    background-color: #ffffff88;
+}

@@ -3,16 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bussola</title>
+    <link rel="shortcut icon" href="https://cdn.pixabay.com/photo/2013/07/13/13/21/compass-160863_1280.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #compass-img {
+            --compass-size: calc(min(50vh, 50vw));
+            height: (var(--compass-size));
+            width: var(--compass-size);
+            border-radius: 50%;
+            padding: 1rem;
+            margin-inline: auto;
+            /* transform: rotate(45deg); */
+
+            transition: transform .03s linear;
+        }
+        #compass-img > img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+        }
+    </style>
 </head>
 <body>
     <main>
-        <button id="btngps">AVVIA GPS</button>
+        <button id="compass-toggle">AVVIA BUSSOLA</button>
         <div>
             NORD
         </div>
-        <div id="degrees">nan</div>
-        <div id="speed">speed</div>
+        <div id="compass-img">
+            <img src="https://cdn.pixabay.com/photo/2013/07/13/13/21/compass-160863_1280.png" alt="">
+        </div>
+        <div id="degrees">Gradi rispetto al Nord</div>
+        <div id="note"></div>
     </main>
     <script src="bussola.js"></script>
 </body>

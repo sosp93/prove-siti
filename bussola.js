@@ -1,67 +1,50 @@
 const degreesVal = document.querySelector('#degrees');
-const speedVal = document.querySelector('#speed');
+const note = document.querySelector('#note');
 const btnGps = document.querySelector('#btngps');
+const btnBussola = document.querySelector('#compass-toggle');
+const bussola = document.querySelector('#compass-img');
 
-function displayPosition(){
-    
+let rotationInterval;
+
+
+function displayPosition(degrees){
+    bussola.style.transform = `rotate(${e.alpha}deg)`;
+    degreesVal.innerHTML = `Azimut: ${Math.floor(degrees==360 ? 0 : degrees)}°`;
 }
 
-// Localizzami con GPS
-function locationSuccess(position){
-    console.log('LOCALIZZAZIONE RIUSCITA');
-    console.log(position);
-    if (position.coords.speed == null) 
-        speedVal.innerHTML = 'speed not available - ' + position.timestamp + ' - accuracy: ' + position.coords.accuracy;
-    else
-        speedVal.innerHTML = position.coords.speed
-}
-
-function locationFail(error){
-    console.error('IMPOSSIBILE LOCALIZZARE');
-    pre.innerText = 'LOCALIZZAZIONE FALLITA\nCIAO';
-    switch(error.code) {
-		case error.PERMISSION_DENIED:
-			console.log("Permesso negato dall'utente");
-			break;
-		case error.POSITION_UNAVAILABLE:
-			console.log("Impossibile determinare la posizione corrente");
-			break;
-		case error.TIMEOUT:
-			console.log("Il rilevamento della posizione impiega troppo tempo");
-			break;
-		case error.UNKNOWN_ERROR:
-			console.log("Si è verificato un errore sconosciuto");
-			break;
-	}
-
-}
-
-
-let watchPositionID = null;
-
-btnGps.addEventListener('click', function(){
-    // getCurrentPosition è una funzione basata sulle callback
-    console.log('ciao');
-    speedVal.innerHTML = "velocità richiesta...s"
-    if (!navigator.geolocation) alert('gps non supportato');
-    watchPositionID = navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
-    //navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
+/* Premendo il pulsante accendo o spengo la bussola */
+btnBussola.addEventListener('click', function(){
+    if (btnBussola.innerHTML == 'SPEGNI BUSSOLA') {
+        window.removeEventListener("deviceorientationabsolute", mylistener);
+        btnBussola.innerHTML = 'ACCENDI BUSSOLA';
+    }
+    else {
+        window.addEventListener("deviceorientationabsolute", mylistener, true);
+        btnBussola.innerHTML = 'SPEGNI BUSSOLA';
+    }
 })
 
 
-
-window.addEventListener("deviceorientationabsolute",mylistener,true);
-
-let i = 0;
+let eventNumber = 0;
 
 /* https://developer.mozilla.org/en-US/docs/Web/API/Device_orientation_events/Orientation_and_motion_data_explained */
 
 function mylistener (e) {
-    console.log(e);
+    /* Se ho un timer attivo devo come prima cosa spegnerlo*/
+    clearInterval(rotationInterval);
     if (e.alpha == null) {
-        degreesVal.innerHTML = ++i + ') alpha not available - ' + (e.absolute ? "assoluta" : "relativa");
+        degreesVal.innerHTML = ++eventNumber + ') alpha not available - ' + (e.absolute ? "assoluta" : "relativa");
+        let j = 0;
+        rotationInterval = setInterval(function() {
+            if (j>=360) clearInterval(rotationInterval);
+            bussola.style.transform = `rotate(${j++}deg)`;
+        }, 30);
     }
     else {
-        degreesVal.innerHTML = ++i + ') alpha: ' + Math.floor(e.alpha) + ' - ' + (e.absolute ? "assoluta" : "relativa");
+        displayPosition(e.alpha);
+        /*
+        degreesVal.innerHTML = ++eventNumber + ') alpha: ' + Math.floor(e.alpha) + ' - ' + (e.absolute ? "assoluta" : "relativa");
+        bussola.style.transform = `rotate(${e.alpha}deg)`;
+        */
     }
 }

@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .item{
+        .item, .item > a{
             height: 200px;
             width: 200px;
             position: relative;
         }
-        .item > img {
+        .item > * > img {
             width: 100%;
             height: 100%;
         }
@@ -18,10 +18,10 @@
             position: absolute;
             bottom: 0;
         }
-        .item:hover > img {
+        .item:hover > * > img {
             filter: blur(2px);
         }
-        .item:hover > .item-name {
+        .item:hover .item-name {
             background-color: #ffffff88;
         }
     </style>

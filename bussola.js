@@ -10,10 +10,10 @@ function displayPosition(){
 function locationSuccess(position){
     console.log('LOCALIZZAZIONE RIUSCITA');
     console.log(position);
-    if (position.coords.heading == null) 
-        sppedVal.innerHTML = 'not available - ' + position.timestamp + ' - accuracy: ' + position.coords.accuracy;
+    if (position.coords.speed == null) 
+        speedVal.innerHTML = 'speed not available - ' + position.timestamp + ' - accuracy: ' + position.coords.accuracy;
     else
-        sppedVal.innerHTML = position.coords.speed
+        speedVal.innerHTML = position.coords.speed
 }
 
 function locationFail(error){
@@ -42,6 +42,7 @@ let watchPositionID = null;
 btnGps.addEventListener('click', function(){
     // getCurrentPosition è una funzione basata sulle callback
     console.log('ciao');
+    speedVal.innerHTML = "velocità richiesta...s"
     if (!navigator.geolocation) alert('gps non supportato');
     watchPositionID = navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
     //navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);

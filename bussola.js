@@ -8,7 +8,7 @@ let rotationInterval;
 
 
 function displayPosition(degrees){
-    bussola.style.transform = `rotate(${e.alpha}deg)`;
+    bussola.style.transform = `rotate(${degrees}deg)`;
     degreesVal.innerHTML = `Azimut: ${Math.floor(degrees==360 ? 0 : degrees)}°`;
 }
 

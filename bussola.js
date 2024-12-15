@@ -34,12 +34,26 @@ function locationFail(error){
 	}
 
 }
-let watchPositionID = null;
 
-btnGps.addEventListener('click', function(){
-    // getCurrentPosition è una funzione basata sulle callback
-    console.log('ciao');
-    if (!navigator.geolocation) alert('gps non supportato');
-    watchPositionID = navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
-    //navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
-})
+
+// let watchPositionID = null;
+
+// btnGps.addEventListener('click', function(){
+//     // getCurrentPosition è una funzione basata sulle callback
+//     console.log('ciao');
+//     if (!navigator.geolocation) alert('gps non supportato');
+//     watchPositionID = navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
+//     //navigator.geolocation.watchPosition(locationSuccess, locationFail/*, gpsOptions*/);
+// })
+
+window.addEventListener("deviceorientationabsolute",mylistener,true);
+
+function mylistener (e) {
+    console.log(e);
+    if (e.alpha == null) {
+        degreesVal.innerHTML = 'alpha not available - ' + e.timeStamp;
+    }
+    else {
+        degreesVal.innerHTML = 'alpha: ' + e.alpha + ' - ' + e.timeStamp;
+    }
+}

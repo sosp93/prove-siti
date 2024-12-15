@@ -20,20 +20,21 @@
         </div>
     </header>
     <div class="choose-list">
-        <div class="item">
+        <!-- HTML 5 non consente di avvolgere i div con un tag a: bisogna usare js -->
+        <div id="item-clock" class="item">
             <img src="https://lh3.ggpht.com/-Zrnj2aK1lxc/UUquW5P1XLI/AAAAAAAAhYY/Q9Ar8COZ4gE/Clock_thumb1.gif?imgmax=800" alt="orologio">
             <div class="item-name">Orologio</div>
         </div>
-        <div class="item">
+        <div id="item-weather" class="item">
             <img src="https://th.bing.com/th/id/R.70c0dd8363271b02a371f6a905267ae4?rik=nJTiqct6Kxd2Vg&pid=ImgRaw&r=0" alt="meteo">
             <div class="item-name">Meteo</div>
         </div>
-        <div class="item">
-            <a href="meteo.html">
-                <img src="https://th.bing.com/th/id/R.70c0dd8363271b02a371f6a905267ae4?rik=nJTiqct6Kxd2Vg&pid=ImgRaw&r=0" alt="meteo">
-                <div class="item-name">Meteo 2</div> 
-            </a>
+        <div id="item-ss36" class="item" goto="https://www.gallerieleccocolico.it/">
+            <img src="https://fr-academic.com/pictures/frwiki/73/Italian_traffic_signs_-_strada_extraurbana_principale.svg" alt="ss36">
+            <div class="item-name">Chiusure SS36</div>
         </div>
     </div>
+
+    <script src="index.js"></script>
 </body>
 </html>

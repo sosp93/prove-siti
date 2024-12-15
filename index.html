@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        #background-img{
+            height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        #background-img > img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            filter: blur(3px);
+        }
+
         .choose-list {
             display: flex;
             gap: .5rem;
@@ -32,6 +47,18 @@
     </style>
 </head>
 <body>
+    <div id="background-img">
+        <img src="https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="">
+    </div>
+
+    <header>
+        <div id="site-title">
+            <h1>Varie prove</h1>
+        </div>
+        <div id="languages">
+            <img src="" alt="Lang">
+        </div>
+    </header>
     <div class="choose-list">
         <div class="item">
             <img src="https://lh3.ggpht.com/-Zrnj2aK1lxc/UUquW5P1XLI/AAAAAAAAhYY/Q9Ar8COZ4gE/Clock_thumb1.gif?imgmax=800" alt="orologio">

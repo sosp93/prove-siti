@@ -10,7 +10,7 @@ function locationSuccess(position){
     console.log('LOCALIZZAZIONE RIUSCITA');
     console.log(position);
     if (position.coords.heading == null) 
-        degreesVal.innerHTML = 'not available';
+        degreesVal.innerHTML = 'not available - ' + position.timestamp + ' - accuracy: ' + position.coords.accuracy;
     else
         degreesVal.innerHTML = position.coords.heading
 }

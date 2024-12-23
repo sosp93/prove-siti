@@ -2,6 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    font-family: 'system-ui', 'sans-serif';
+}
+
+:root {
+    color-scheme: dark light;
+
+    --padding-header: 1rem;
+}
+
+/* Regola generica per le immagini */
+img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
 }
 
 /* SFONDO DELLA PAGINA */
@@ -12,42 +27,64 @@
     top: 0;
     left: 0;
     z-index: -1;
-}
-#background-img > img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    filter: blur(3px);
+
+    & > img {
+        object-fit: cover;
+        filter: blur(3px);
+    }
 }
 
 /* HEADER */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    
+    padding: var(--padding-header);
+    
+    background-color: rgba(50, 50, 50, 0.9);
+    color: white;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    & > #languages {
+        position: absolute;
+        right: var(--padding-header);
+        bottom: var(--padding-header);
+
+        height: 2rem;
+        width: 3rem;
+
+        cursor: pointer;
+    }
+}
 
 
 /* LISTA DEI COLLEGAMENTI */
 .choose-list {
+    padding: calc(2 * var(--padding-header));
     display: flex;
     flex-wrap: wrap;
-    gap: .5rem;
+    gap: calc(var(--padding-header) / 2);
     flex-direction: row;
 }
-.item, .item > a{
-    height: 300px;
-    width: 300px;
-    position: relative;
-}
-.item {
-    border: 1px solid purple;
-}
-a {
-    border: 1px dashed yellow;
-    width: 300px;
-    height: 300px;
 
+.item {
+    height: 200px;
+    width: 200px;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    
+    cursor: pointer;
+
+    transition: transform .2s, filter .2s;
+    transition-delay: 10ms 0s;
+
+    background-color: white;
 }
-.item img {
-    width: 100%;
-    height: 100%;
-}
+
 .item-name {
     position: absolute;
     bottom: 0;
@@ -55,12 +92,29 @@ a {
     height: 2em;
     text-align: center;
     line-height: 2em;
-    background-color: #ffffff99;
-    border: 1px red solid;
+    transition: font-weight .2s;
+    background: linear-gradient(#ffffff00 0%,  #ffffffaa 40%);
 }
-.item:hover img {
-    filter: blur(2px);
+
+/* Quando tolgo il mouse dall'elemento parte questa animazione
+   che tiene lo z-index a 50, poi la lascio che alla fine 
+   non torna allo stato "naturale" */
+@keyframes zIndexHack {
+    0%, 100% {
+        z-index: 40;
+    }
 }
-.item:hover .item-name {
-    background-color: #ffffff88;
+.item:not(:hover){
+    animation: zIndexHack 500ms;
+}
+
+@media (hover :hover){
+    .item:hover{
+        transform: scale(1.15);
+        z-index: 50;
+        font-weight: bold;
+    }
+    .choose-list:has(.item:hover) .item:not(:hover) {
+        filter: blur(3px) grayscale(.3);
+    }
 }

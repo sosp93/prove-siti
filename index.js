@@ -1,22 +1,13 @@
-const itemClock = document.querySelector('#item-clock');
-const itemWeather = document.querySelector('#item-weather');
-const itemSs36 = document.querySelector('#item-ss36');
-const itemCompass = document.querySelector('#item-compass');
+const items = document.querySelectorAll('.item');
 
-itemClock.addEventListener('click', function() {
-    location.href = "orologio.html"
-})
+function goto (ev, link) {
+    //console.log(ev);
+    //console.log(link);
+    location.href = link;
+}
 
-itemWeather.addEventListener('click', function() {
-    location.href = "meteo.html"
-})
-
-/* https://www.gallerieleccocolico.it/ */
-
-itemSs36.addEventListener('click', function() {
-    location.href = itemSs36.attributes.goto.value;
-})
-
-itemCompass.addEventListener('click', function() {
-    location.href = itemCompass.attributes.goto.value;
-})
+items.forEach(
+    item => {
+        item.addEventListener('click', (event) => goto (event, item.attributes.goto.value));
+    }
+)

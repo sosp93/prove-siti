@@ -1,27 +1,153 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Orologio</title>
+    <style>
+        #options-menu {
+            border: 1px black solid;
+        }
+
+        #analog-clock, #ckframe-analog {
+            height: 300px;
+            width: 300px;
+            background-color: rgb(0, 255, 225);
+            position: relative;
+            border-radius: 50%;
+        }
+        #hand-sec, #hand-min, #hand-hour{
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: 50% 100%;
+            transform: translate(-50%, 0);
+        }
+        #hand-sec{
+            height: 150px;
+            width: 2px;
+
+            background-color: red;
+        }
+        #hand-min {
+            height: 100px;
+            width: 2px;
+
+            background-color: green;
+        }
+        #hand-hour{
+            height: 50px;
+            width: 2px;
+
+            background-color: black;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
-        <div class="element">
+
+        <fieldset id="menu-ck-type">
+            <legend>Tipo orologio</legend>
+
+            <div class="checkbox">
+                <input type="radio" name="clock-type" id="rb-digital" value="digital" checked>
+                <label for="rb-digital">Digitale</label>
+            </div>
+
+            <div class="checkbox">
+                <input type="radio" name="clock-type" id="rb-analog" value="analog">
+                <label for="rb-analog">Analogico</label>
+            </div>
+        </fieldset>
+
+
+        <div class="element" id="ckframe-digital">
             <span id="digital-clock">
-                12:34
             </span>
+        </div>
+
+        <div class="element" id="ckframe-analog" hidden>
+            <div id="analog-clock">
+                <div id="hand-sec"></div>
+                <div id="hand-min"></div>
+                <div id="hand-hour"></div>
+            </div>
+        </div>
+
+        <div id="note">
+            NOTE
         </div>
     </div>
 </body>
 <script>
     const digitalClock = document.querySelector('#digital-clock');
+    const analogClock = document.querySelector('#analog-clock');
+    const handSec = document.querySelector('#hand-sec');
+    const handMin = document.querySelector('#hand-min');
+    const handHour = document.querySelector('#hand-hour');
+    const ckFrameDigital = document.querySelector('#ckframe-digital');
+    const ckFrameAnalog = document.querySelector('#ckframe-analog');
+    const fieldCkType = document.querySelector('#menu-ck-type');
+    //console.log(fieldCkType.childNodes);
+    //console.log(fieldCkType.querySelectorAll('input'));
+    const rbCkTypes = fieldCkType.querySelectorAll('input');
 
-    function displayTime(){
-        const myDate = new Date();
-        digitalClock.innerHTML = myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds().toString().padStart(2,'0');
+    const note = document.querySelector('#note');
+
+    let clocktype = 'digital';
+
+    rbCkTypes.forEach(rb => {
+        rb.addEventListener('change', function(event) {
+            console.clear();
+            console.log(event);
+            console.log(event.target.value);
+            updateCkType(event.target.value);
+        })
+    });
+
+
+    function updateCkType (type) {
+        clocktype = type;
+        if (type == 'digital') {
+            ckFrameAnalog.setAttribute('hidden', 'true');
+            ckFrameDigital.removeAttribute('hidden');
+        } else if (type == 'analog') {
+            ckFrameAnalog.removeAttribute('hidden');
+            ckFrameDigital.setAttribute('hidden', 'true');
+        }
     }
 
-    const clockupd = setInterval(displayTime, 1000);
+    // aggiorna ora con requestAnimationFrame
+    /*
+    function displayTime() {
+        const myDate = new Date();
+        if (clocktype == 'digital') {
+            digitalClock.innerHTML = myDate.getHours() + ':' + myDate.getMinutes().toString().padStart(2, '0') + ':' + myDate.getSeconds().toString().padStart(2, '0');
+        } else {
+            ckFrameAnalog.innerText = myDate.getHours() + ':' + myDate.getMinutes().toString().padStart(2, '0') + ':' + myDate.getSeconds().toString().padStart(2, '0');
+        }
+        requestAnimationFrame(displayTime);
+    }
+
+    displayTime();*/
+
+
+    // aggiorna con timer
+    function displayTime() {
+        const myDate = new Date();
+        if (clocktype == 'digital') {
+            digitalClock.innerHTML = myDate.getHours() + ':' + myDate.getMinutes().toString().padStart(2, '0') + ':' + myDate.getSeconds().toString().padStart(2, '0');
+        } else {
+            //ckFrameAnalog.innerText = myDate.getHours() + ':' + myDate.getMinutes().toString().padStart(2, '0') + ':' + myDate.getSeconds().toString().padStart(2, '0');
+            const myTransform = `translate(-50%, 0) rotate(${myDate.getSeconds()*6}deg)`;
+            handSec.style.transform = myTransform;
+            handMin.style.transform = `translate(-50%, 0) rotate(${myDate.getMinutes()*6}deg)`;
+            handHour.style.transform = `translate(-50%, 0) rotate(${myDate.getHours()*30}deg)`;
+        }
+    }
+    const clockupd = setInterval(displayTime, 500);
 </script>
+
 </html>
